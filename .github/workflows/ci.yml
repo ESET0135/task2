@@ -1,0 +1,16 @@
+name: CI Basic Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "Hello GitHub Actions"
+      - run: |
+          echo "Current date: $(date)"
+          echo "Current branch: ${{ github.ref_name }}"

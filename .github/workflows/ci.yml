@@ -4,13 +4,18 @@ on:
   push:
     branches:
       - main
-
+  
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo "Hello GitHub Actions"
-      - run: |
-          echo "Current date: $(date)"
-          echo "Current branch: ${{ github.ref_name }}"
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - run: pip install -r requirements.txt
+      - run: pytest
+      - run: echo "All tests passed successfully!"
+        if: success()
+      - run: echo "Tests failed. Please check the logs."
+        if: failure()
